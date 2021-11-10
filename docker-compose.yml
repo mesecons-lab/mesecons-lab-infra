@@ -8,9 +8,19 @@ services:
    - "30003:30003/udp"
   volumes:
    - "./minetest.conf:/etc/minetest/minetest.conf"
-   - "./data/mesecons_lab:/var/lib/minetest/.minetest/games/mesecons_lab"
-   - "./data/world:/var/lib/minetest/.minetest"
+   - "minetest:/var/lib/minetest"
   command: ["/usr/local/bin/minetestserver", "--config", "/etc/minetest/minetest.conf", "--gameid", "mesecons_lab"]
   logging:
    options:
     max-size: 50m
+
+ companion:
+  build: companion
+  volumes:
+   - "minetest:/minetest"
+  logging:
+   options:
+    max-size: 50m
+
+volumes:
+  minetest: {}
