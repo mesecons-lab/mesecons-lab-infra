@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+ minetest:
+  image: registry.gitlab.com/minetest/minetest/server:5.4.0
+  restart: always
+  ports:
+   - "30003:30003/udp"
+  volumes:
+   - "./minetest.conf:/etc/minetest/minetest.conf"
+   - "./data/mesecons_lab:/var/lib/minetest/.minetest/games/mesecons_lab"
+   - "./data/world:/var/lib/minetest/.minetest"
+  command: ["/usr/local/bin/minetestserver", "--config", "/etc/minetest/minetest.conf", "--gameid", "mesecons_lab"]
+  logging:
+   options:
+    max-size: 50m
